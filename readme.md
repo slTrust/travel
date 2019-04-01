@@ -24,3 +24,11 @@
     - mysql 数据库
     - druid 数据库连接池
     - JdbcTemplate jdbc工具
+    
+#### 创建数据库和初始化数据
+
+- 创建数据库 travel
+- 在这个数据库里执行sql文件
+- 我用的是 navicat客户端非常方便
+- src/main/resources里有 travel.sql文件
+
