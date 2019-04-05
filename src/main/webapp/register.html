@@ -67,7 +67,13 @@
 
             $(function(){
                 $("#registerForm").submit(function(){
-                    checkUsername() && checkPassword() && checkEmail();
+                    if(checkUsername() && checkPassword() && checkEmail()){
+                        $.post("registUserServlet",$(this).serialize(),function(data){
+							// 处理服务器响应数据
+						})
+					}
+					// 阻止表单提交事件 使用 ajax
+					return false;
 				})
 
                 $("#username").blur(checkUsername);
@@ -89,7 +95,7 @@
     			<div class="rg_form_center">
 					
 					<!--注册表单-->
-    				<form id="registerForm">
+    				<form id="registerForm" ac>
 						<!--提交处理请求的标识符-->
 						<input type="hidden" name="action" value="register">
     					<table style="margin-top: 25px;">
