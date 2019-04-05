@@ -5,8 +5,76 @@
         <title>注册</title>
         <link rel="stylesheet" type="text/css" href="css/common.css">
         <link rel="stylesheet" href="css/register.css">
+		<style>
+			.check_error{
+				border:1px solid red !important;
+			}
+		</style>
 		<!--导入jquery-->
 		<script src="js/jquery-3.3.1.js"></script>
+		<script>
+			/*
+			* 表单校验
+			* 1用户名 8-20
+			* 2密码 8-20
+			* 3email 邮件格式
+			* 4姓名 非空
+			* 5手机号 正则
+			* 6出生日期 非空
+			* 7 验证码 非空
+			* */
+			
+			function checkUsername() {
+			    var username = $("#username").val();
+			    var reg_username = /^\w{8,20}$/;
+				var flg = reg_username.test(username)
+				if(flg){
+                    $("#username").removeClass("check_error")
+
+                }else{
+                    $("#username").addClass("check_error")
+
+                }
+				return flg;
+            }
+            function checkPassword() {
+                var password = $("#password").val();
+                var reg_password = /^\w{8,20}$/;
+                var flg = reg_password.test(password)
+                if(flg){
+                    $("#password").removeClass("check_error")
+
+                }else{
+                    $("#password").addClass("check_error")
+
+                }
+                return flg;
+            }
+
+            function checkEmail() {
+                var email = $("#email").val();
+                var reg_email = /^\w+@\w+.\w+$/;
+                var flg = reg_email.test(email)
+                if(flg){
+                    $("#email").removeClass("check_error")
+
+                }else{
+                    $("#email").addClass("check_error")
+
+                }
+                return flg;
+            }
+
+            $(function(){
+                $("#registerForm").submit(function(){
+                    checkUsername() && checkPassword() && checkEmail();
+				})
+
+                $("#username").blur(checkUsername);
+                $("#password").blur(checkPassword);
+                $("#email").blur(checkEmail);
+			})
+		</script>
     </head>
 	<body>
 	<!--引入头部-->
