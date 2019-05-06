@@ -29,8 +29,8 @@ public class UserDaoImpl implements UserDao {
     public void save(User user) {
         System.out.println(user);
         //1 sql
-        String sql = "insert into tab_user(username,password,name,birthday,sex,telephone,email) " +
-                "values(?,?,?,?,?,?,?)";
+        String sql = "insert into tab_user(username,password,name,birthday,sex,telephone,email,code,status) " +
+                "values(?,?,?,?,?,?,?,?,?)";
         //2 执行sql
         template.update(sql,user.getUsername(),
                 user.getPassword(),
@@ -38,7 +38,9 @@ public class UserDaoImpl implements UserDao {
                 user.getBirthday(),
                 user.getSex(),
                 user.getTelephone(),
-                user.getEmail()
+                user.getEmail(),
+                user.getCode(),
+                user.getStatus()
                 );
     }
 }

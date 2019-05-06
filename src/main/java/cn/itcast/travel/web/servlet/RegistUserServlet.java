@@ -62,7 +62,6 @@ public class RegistUserServlet extends HttpServlet {
         //3.调用service完成注册
         UserService service = new UserServiceImpl();
         System.out.println(user);
-        System.out.println("aaaa");
         boolean flag = service.regist(user);
         //4.响应结果
         ResultInfo info = new ResultInfo();
