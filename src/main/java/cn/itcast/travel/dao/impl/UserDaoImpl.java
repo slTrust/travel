@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
     public void save(User user) {
         System.out.println(user);
         //1 sql
-        String sql = "insert into tab_user(username,password,name,birthday,sex,telephone,email,code,status) " +
+        String sql = "insert into tab_user(username,password,name,birthday,sex,telephone,email,status,code) " +
                 "values(?,?,?,?,?,?,?,?,?)";
         //2 执行sql
         template.update(sql,user.getUsername(),
@@ -39,8 +39,29 @@ public class UserDaoImpl implements UserDao {
                 user.getSex(),
                 user.getTelephone(),
                 user.getEmail(),
-                user.getCode(),
-                user.getStatus()
+                user.getStatus(),
+                user.getCode()
                 );
+    }
+
+    @Override
+    public User findByCode(String code) {
+        User user = null;
+        try {
+            //1 sql
+            String sql = "select * from tab_user where code = ?";
+            //2 执行sql
+            user = template.queryForObject(sql,new BeanPropertyRowMapper<User>(User.class),code);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    @Override
+    public void updateStatus(User user) {
+        String sql = "update tab_user set status  = 'Y' where uid= ?";
+        template.update(sql,user.getUid());
     }
 }

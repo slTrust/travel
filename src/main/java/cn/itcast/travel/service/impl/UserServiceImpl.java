@@ -33,4 +33,17 @@ public class UserServiceImpl implements UserService {
         MailUtils.sendMail(user.getEmail(),content,"激活邮件");
         return true;
     }
+
+    @Override
+    public boolean active(String code) {
+        //1. 根据激活码查询用户对象
+        User user = userDao.findByCode(code);
+        if(user != null){
+            //激活
+            userDao.updateStatus(user);
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
