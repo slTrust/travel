@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
@@ -20,7 +21,27 @@ import java.util.Set;
 @WebServlet("/registUserServlet")
 public class RegistUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("111经过 post servlet");
+        //0 校验验证码
+        String check = request.getParameter("check");
+        // 从 session里获取 验证码
+        HttpSession session = request.getSession();
+        String checkcode_server = (String) session.getAttribute("CHECKCODE_SERVER");
+        // 清空 session里的验证码 为了保证验证码只能使用一次
+        session.removeAttribute("CHECKCODE_SERVER");
+        // 比较
+        if(checkcode_server==null || !checkcode_server.equalsIgnoreCase(check)){
+            // 校验码错误
+            ResultInfo info = new ResultInfo();
+            info.setFlag(false);
+            info.setErrorMsg("验证码错误");
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(info);
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter().write(json);
+            return;
+        }
+
+
         //1.获取数据
         Map<String,String[]> map = request.getParameterMap();
         Set<String> keySet = map.keySet();

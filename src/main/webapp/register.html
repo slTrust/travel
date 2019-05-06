@@ -70,6 +70,12 @@
                     if(checkUsername() && checkPassword() && checkEmail()){
                         $.post("registUserServlet",$(this).serialize(),function(data){
 							// 处理服务器响应数据
+							if(data.flag ==true){
+							    // 注册成功
+								location.href = "register_ok.html";
+							}else{
+								$("#error_msg").html(data.errorMsg);
+							}
 						})
 					}
 					// 阻止表单提交事件 使用 ajax
@@ -93,7 +99,7 @@
     				<p>USER REGISTER</p>
     			</div>
     			<div class="rg_form_center">
-					
+					<div id="error_msg" style="color:red;text-align: center;"></div>
 					<!--注册表单-->
     				<form id="registerForm" ac>
 						<!--提交处理请求的标识符-->

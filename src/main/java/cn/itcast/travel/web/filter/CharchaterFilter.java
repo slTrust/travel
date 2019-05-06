@@ -27,7 +27,6 @@ public class CharchaterFilter implements Filter {
         if(method.equalsIgnoreCase("post")){
             request.setCharacterEncoding("UTF-8");
         }
-        System.out.println("先经过 filter");
         //处理响应乱码
         response.setContentType("text/html;charset=UTF-8");
         filterChain.doFilter(request,response);
