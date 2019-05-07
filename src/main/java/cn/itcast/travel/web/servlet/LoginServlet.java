@@ -53,6 +53,8 @@ public class LoginServlet extends HttpServlet {
         //6. 判断登陆成功
         if(u != null && "Y".equals(u.getStatus())){
             //登陆成功
+            request.getSession().setAttribute("user",u);//登录成功标记
+
             info.setFlag(true);
         }
         System.out.println(u);

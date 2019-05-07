@@ -1,4 +1,14 @@
 <!-- 头部 start -->
+<script>
+    $(function(){
+        $.get("findUserServlet",{},function(data){
+            //{uid:1,name:"李四"}
+            var msg = `欢迎回来${data.name}`;
+
+            $("#span_username").html(msg)
+        })
+    })
+</script>
     <header id="header">
         <div class="top_banner">
             <img src="images/top_banner.jpg" alt="">
@@ -12,7 +22,7 @@
             <!-- 登录状态  -->
             <div class="login">
             	
-                <span>欢迎回来，admin</span>
+                <span id="span_username"></span>
                 <a href="myfavorite.html" class="collection">我的收藏</a>
                 <a href="javascript:;">退出</a>
             </div>
