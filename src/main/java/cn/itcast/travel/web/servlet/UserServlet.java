@@ -88,11 +88,12 @@ public class UserServlet extends BaseServlet {
             info.setErrorMsg("注册失败");
         }
         //5.将 info对象序列化为json
-        ObjectMapper mapper = new ObjectMapper();
-        String json = mapper.writeValueAsString(info);
+        // ObjectMapper mapper = new ObjectMapper();
+        // String json = mapper.writeValueAsString(info);
         // 将json写回客户端
-        response.setContentType("application/json;charset=utf-8");
-        response.getWriter().write(json);
+        // response.setContentType("application/json;charset=utf-8");
+        // response.getWriter().write(json);
+        writeValue(info,response);
     }
 
     /**
@@ -144,10 +145,11 @@ public class UserServlet extends BaseServlet {
         System.out.println(u);
 
         // 响应数据
-        ObjectMapper mapper = new ObjectMapper();
+        // ObjectMapper mapper = new ObjectMapper();
 
-        response.setContentType("application/json;charset=utf-8");
-        mapper.writeValue(response.getOutputStream(), info);
+        // response.setContentType("application/json;charset=utf-8");
+        // mapper.writeValue(response.getOutputStream(), info);
+        writeValue(info,response);
     }
 
     /**
@@ -162,9 +164,10 @@ public class UserServlet extends BaseServlet {
         Object user = request.getSession().getAttribute("user");
         // 将user写回客户端
 
-        ObjectMapper mapper = new ObjectMapper();
-        response.setContentType("application/json;charset=utf-8");
-        mapper.writeValue(response.getOutputStream(),user);
+        // ObjectMapper mapper = new ObjectMapper();
+        // response.setContentType("application/json;charset=utf-8");
+        // mapper.writeValue(response.getOutputStream(),user);
+        writeValue(user,response);
     }
 
     /**
