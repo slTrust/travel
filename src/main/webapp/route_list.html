@@ -15,7 +15,52 @@
     $(function(){
         var search = location.search;
         var cid = search.split("=")[1];
-        alert(cid);
+
+        // 发送ajax
+        $.get("route/pageQuery",{cid:cid},function(pb){
+            // 解析 pagebean数据，展示到页面
+
+            //1 分页工具条数据
+            //1.1 总页码 和总记录数
+            $("#totalPage").html(pb.totalPage);
+            $("#totalCount").html(pb.totalCount);
+
+            /*
+            <li><a href="">首页</a></li>
+            <li class="threeword"><a href="#">上一页</a></li>
+            <li><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#">5</a></li>
+            <li><a href="#">6</a></li>
+            <li><a href="#">7</a></li>
+            <li><a href="#">8</a></li>
+            <li><a href="#">9</a></li>
+            <li><a href="#">10</a></li>
+            <li class="threeword"><a href="javascript:;">下一页</a></li>
+            <li class="threeword"><a href="javascript:;">末页</a></li>
+             */
+            // 1.2显示分页页码
+            var lis = "";
+
+            var firstPage  = '<li><a href="javascript:;">首页</a></li>';
+            var beforePage ='<li class="threeword"><a href="javascript:;">下一页</a></li>';
+            lis += firstPage;
+            lis += beforePage;
+            for(var i=1;i<pb.totalPage;i++){
+                var li = '<li><a href="#">'+i+'</a></li>';
+                lis += li;
+            }
+            var lastPage  = '<li class="threeword"><a href="javascript:;">下一页</a></li>';
+            var nextPage ='<li class="threeword"><a href="javascript:;">末页</a></li>';
+            lis += lastPage;
+            lis += nextPage;
+            // 将lis的内容设置到 ul里
+            $("#pageNum").html(lis);
+            // 列表数据
+
+        })
     })
 </script>
 <!--引入头部-->
@@ -164,10 +209,10 @@
                     </ul>
                     <div class="page_num_inf">
                         <i></i> 共
-                        <span>12</span>页<span>132</span>条
+                        <span id="totalPage">12</span>页<span id="totaoCount">132</span>条
                     </div>
                     <div class="pageNum">
-                        <ul>
+                        <ul id="pageNum">
                             <li><a href="">首页</a></li>
                             <li class="threeword"><a href="#">上一页</a></li>
                             <li><a href="#">1</a></li>
