@@ -11,6 +11,13 @@
     <script src="js/jquery-3.3.1.js"></script>
 </head>
 <body>
+<script>
+    $(function(){
+        var search = location.search;
+        var cid = search.split("=")[1];
+        alert(cid);
+    })
+</script>
 <!--引入头部-->
 <div id="header"></div>
     <div class="page_one">
